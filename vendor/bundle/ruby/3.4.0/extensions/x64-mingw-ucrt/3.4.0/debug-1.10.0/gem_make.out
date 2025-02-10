@@ -1,0 +1,20 @@
+current directory: C:/Users/marmi/Documents/GitHub/CSC_ECE_517_Spring2025_Program_2/vendor/bundle/ruby/3.4.0/gems/debug-1.10.0/ext/debug
+C:/Ruby34-x64/bin/ruby.exe extconf.rb
+creating Makefile
+
+current directory: C:/Users/marmi/Documents/GitHub/CSC_ECE_517_Spring2025_Program_2/vendor/bundle/ruby/3.4.0/gems/debug-1.10.0/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20250210-13092-ks1mci sitelibdir\=./.gem.20250210-13092-ks1mci clean
+
+current directory: C:/Users/marmi/Documents/GitHub/CSC_ECE_517_Spring2025_Program_2/vendor/bundle/ruby/3.4.0/gems/debug-1.10.0/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20250210-13092-ks1mci sitelibdir\=./.gem.20250210-13092-ks1mci
+generating debug-x64-mingw-ucrt.def
+compiling debug.c
+compiling iseq_collector.c
+linking shared-object debug/debug.so
+
+current directory: C:/Users/marmi/Documents/GitHub/CSC_ECE_517_Spring2025_Program_2/vendor/bundle/ruby/3.4.0/gems/debug-1.10.0/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20250210-13092-ks1mci sitelibdir\=./.gem.20250210-13092-ks1mci install
+/usr/bin/install -c -m 0755 debug.so ./.gem.20250210-13092-ks1mci/debug
+
+current directory: C:/Users/marmi/Documents/GitHub/CSC_ECE_517_Spring2025_Program_2/vendor/bundle/ruby/3.4.0/gems/debug-1.10.0/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20250210-13092-ks1mci sitelibdir\=./.gem.20250210-13092-ks1mci clean
