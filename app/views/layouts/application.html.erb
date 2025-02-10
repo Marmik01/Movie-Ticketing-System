@@ -24,5 +24,14 @@
 
   <body>
     <%= yield %>
+    <nav>
+      <% if session[:user_id] %>
+        <p>Welcome, <%= User.find(session[:user_id]).username %> |
+          <%= link_to "Logout", logout_path, method: :delete %>
+        </p>
+      <% else %>
+        <%= link_to "Login", login_path %>
+      <% end %>
+    </nav>
   </body>
 </html>
