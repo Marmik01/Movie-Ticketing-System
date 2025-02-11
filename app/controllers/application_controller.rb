@@ -1,4 +1,18 @@
 class ApplicationController < ActionController::Base
-  # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
-  allow_browser versions: :modern
+  helper_method :current_user, :admin?
+
+  def current_user
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+  end
+
+  def admin?
+    current_user && current_user.is_admin?
+  end
+
+  def require_admin
+    unless admin?
+      flash[:alert] = "You are not authorized to access this page!"
+      redirect_to root_path
+    end
+  end
 end
