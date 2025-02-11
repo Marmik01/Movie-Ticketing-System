@@ -1,11 +1,44 @@
-<% content_for :title, "New user" %>
+<h2>Sign Up</h2>
 
-<h1>New user</h1>
+<%= form_with model: @user, url: signup_path, method: :post do |form| %>
+  <div>
+    <%= form.label :username %>
+    <%= form.text_field :username, required: true %>
+  </div>
 
-<%= render "form", user: @user %>
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name, required: true %>
+  </div>
 
-<br>
+  <div>
+    <%= form.label :email %>
+    <%= form.email_field :email, required: true %>
+  </div>
 
-<div>
-  <%= link_to "Back to users", users_path %>
-</div>
+  <div>
+    <%= form.label :password %>
+    <%= form.password_field :password, required: true %>
+  </div>
+
+  <div>
+    <%= form.label :phone %>
+    <%= form.telephone_field :phone %>
+  </div>
+
+  <div>
+    <%= form.label :address %>
+    <%= form.text_area :address %>
+  </div>
+
+  <div>
+    <%= form.label :credit_card_info %>
+    <%= form.text_field :credit_card_info, required: true %>
+  </div>
+
+  <div>
+    <%= form.submit "Sign Up" %>
+  </div>
+<% end %>
+
+<%= link_to "Already have an account? Login", login_path %>

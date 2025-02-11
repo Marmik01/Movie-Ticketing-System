@@ -23,14 +23,13 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to @user, notice: "User was successfully created." }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+    if @user.save
+      session[:user_id] = @user.id  # Log in user after registration
+      flash[:notice] = "Sign-up successful! Welcome, #{@user.username}!"
+      redirect_to root_path
+    else
+      flash[:alert] = "Error creating account. Please check your inputs."
+      render :new
     end
   end
 
@@ -65,6 +64,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.expect(user: [ :username, :name, :email, :password, :phone, :address, :credit_card_info, :is_admin ])
+      params.require(:user).permit(:username, :name, :email, :password, :phone, :address, :credit_card_info)
     end
 end
