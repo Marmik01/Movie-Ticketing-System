@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   def new
+    redirect_to movies_path if session[:user_id]  # Redirect logged-in users
   end
 
   def create

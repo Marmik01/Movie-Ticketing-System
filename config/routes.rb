@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root "movies#index"
+  root "sessions#new"
 
   get "signup", to: "users#new"      # Route to show sign-up form
   post "signup", to: "users#create"  # Route to handle form submission
