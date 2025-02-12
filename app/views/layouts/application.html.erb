@@ -27,6 +27,7 @@
     <nav>
       <% if session[:user_id] %>
         <p>Welcome, <%= User.find(session[:user_id]).username %> |
+          <%= link_to "Edit Profile", edit_user_path(User.find_by(id: session[:user_id])) %> |
           <%= link_to "Logout", logout_path, method: :delete, data: { "turbo-method": :delete } %>
         </p>
       <% else %>

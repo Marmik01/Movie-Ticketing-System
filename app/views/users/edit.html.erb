@@ -1,12 +1,57 @@
-<% content_for :title, "Editing user" %>
+<%# content_for :title, "Editing user" %>
 
-<h1>Editing user</h1>
+<!--<h1>Editing user</h1>-->
 
-<%= render "form", user: @user %>
+<%#= render "form", user: @user %>
 
-<br>
+<!--<br>-->
 
-<div>
-  <%= link_to "Show this user", @user %> |
-  <%= link_to "Back to users", users_path %>
-</div>
+<!--<div>-->
+<!--  <%#= link_to "Show this user", @user %> |-->
+  <%#= link_to "Back to users", users_path %>
+<!--</div>-->
+
+<h2>Edit Profile</h2>
+
+<%= form_with model: @user, local: true do |form| %>
+  <div>
+    <%= form.label :username %>
+    <%= form.text_field :username, required: true %>
+  </div>
+
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name, required: true %>
+  </div>
+
+  <div>
+    <%= form.label :email %>
+    <%= form.email_field :email, required: true %>
+  </div>
+
+  <div>
+    <%= form.label :password %>
+    <%= form.password_field :password %>
+  </div>
+
+  <div>
+    <%= form.label :phone %>
+    <%= form.telephone_field :phone %>
+  </div>
+
+  <div>
+    <%= form.label :address %>
+    <%= form.text_area :address %>
+  </div>
+
+  <div>
+    <%= form.label :credit_card_info %>
+    <%= form.text_field :credit_card_info %>
+  </div>
+
+  <div>
+    <%= form.submit "Save Changes" %>
+  </div>
+<% end %>
+
+<%= link_to "Cancel", @user %>

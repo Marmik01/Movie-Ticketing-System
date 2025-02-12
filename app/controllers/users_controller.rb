@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :set_user, only: [:show, :edit, :update, :destroy ]
+  before_action :authorize_user, only: [ :edit, :update, :destroy ]
 
   # GET /users or /users.json
   def index
@@ -35,31 +36,51 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to @user, notice: "User was successfully updated." }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+    # respond_to do |format|
+    if @user.update(user_params)
+        # format.html { redirect_to @user, notice: "User was successfully updated." }
+        # format.json { render :show, status: :ok, location: @user }
+      Rails.logger.debug "Redirecting to user profile: #{@user.id}"
+      flash[:notice] = "Profile updated successfully!"
+      redirect_to user_path(@user)
+    else
+        # format.html { render :edit, status: :unprocessable_entity }
+        # format.json { render json: @user.errors, status: :unprocessable_entity }
+      flash[:alert] = "Error updating profile."
+      render :edit
     end
+    # end
   end
 
   # DELETE /users/1 or /users/1.json
   def destroy
-    @user.destroy!
+    @user.destroy
 
-    respond_to do |format|
-      format.html { redirect_to users_path, status: :see_other, notice: "User was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    # respond_to do |format|
+    #   format.html { redirect_to users_path, status: :see_other, notice: "User was successfully destroyed." }
+    #   format.json { head :no_content }
+    # end
+    session[:user_id] = nil  # Log out user after account deletion
+    flash[:notice] = "Account deleted successfully."
+    redirect_to root_path
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(params.expect(:id))
+      Rails.logger.debug "Fetching user with ID: #{params[:id]}"
+      @user = User.find_by(id: params[:id])
+      if @user.nil?
+        flash[:alert] = "User not found."
+        redirect_to root_path
+      end
+    end
+
+    def authorize_user
+      unless session[:user_id] == @user.id
+        flash[:alert] = "You are not authorized to edit or delete this profile!"
+        redirect_to root_path
+      end
     end
 
     # Only allow a list of trusted parameters through.
