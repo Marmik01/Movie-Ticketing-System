@@ -13,4 +13,6 @@
   <% end %>
 </div>
 
-<%= link_to "New movie", new_movie_path %>
+<% if current_user&.is_admin %>
+  <%= link_to "New Movie", new_movie_path, class: "btn btn-primary" %>
+<% end %>

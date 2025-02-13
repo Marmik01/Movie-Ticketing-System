@@ -12,7 +12,9 @@ Rails.application.routes.draw do
   resources :tickets
   resources :shows
   resources :screens
-  resources :movies
+  resources :movies do
+    resources :shows
+  end
   resources :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
