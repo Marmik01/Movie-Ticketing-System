@@ -23,16 +23,17 @@
   </head>
 
   <body>
-    <%= yield %>
     <nav>
       <% if session[:user_id] %>
         <p>Welcome, <%= User.find(session[:user_id]).username %> |
           <%= link_to "Logout", logout_path, method: :delete, data: { "turbo-method": :delete } %>
+          
         </p>
       <% else %>
         <%= link_to "Login", login_path %>
         <%= link_to "Sign Up", signup_path %>
     <% end %>
     </nav>
+    <%= yield %>
   </body>
 </html>

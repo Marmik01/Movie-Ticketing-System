@@ -1,5 +1,7 @@
 class MoviesController < ApplicationController
-  before_action :set_movie, only: %i[ show edit update destroy ]
+  before_action :require_admin, only: [:new, :create, :edit, :update, :destroy]
+  before_action :set_movie, only: [:show, :edit, :update, :destroy]
+
 
   # GET /movies or /movies.json
   def index
@@ -25,7 +27,7 @@ class MoviesController < ApplicationController
 
     respond_to do |format|
       if @movie.save
-        format.html { redirect_to @movie, notice: "Movie was successfully created." }
+        format.html { redirect_to movies_path, notice: "Movie was successfully created." }
         format.json { render :show, status: :created, location: @movie }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -58,6 +60,13 @@ class MoviesController < ApplicationController
   end
 
   private
+
+    def require_admin
+      unless current_user&.is_admin
+        flash[:alert] = "Access denied!"
+        redirect_to movies_path
+      end
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_movie
       @movie = Movie.find(params.expect(:id))
