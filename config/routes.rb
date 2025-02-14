@@ -10,8 +10,9 @@ Rails.application.routes.draw do
   delete "logout", to: "sessions#destroy"
 
   resources :tickets
-  resources :shows
-  resources :screens
+  resources :screens, only: [] do
+    get "capacity", on: :member
+  end
   resources :movies do
     resources :shows
   end

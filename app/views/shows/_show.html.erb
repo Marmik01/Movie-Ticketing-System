@@ -1,8 +1,4 @@
 <div id="<%= dom_id show %>">
-  <p>
-    <strong>Movie:</strong>
-    <%= show.movie_id %>
-  </p>
 
   <p>
     <strong>Screen:</strong>
@@ -11,12 +7,12 @@
 
   <p>
     <strong>Date:</strong>
-    <%= show.date %>
+    <%= show.date.strftime("%-d %B %Y") %>
   </p>
 
   <p>
     <strong>Time:</strong>
-    <%= show.time %>
+    <%= show.time.strftime("%H:%M") %>
   </p>
 
   <p>

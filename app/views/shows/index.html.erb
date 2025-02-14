@@ -2,15 +2,17 @@
 
 <% content_for :title, "Shows" %>
 
-<h1>Shows</h1>
+<h1>Available Shows for <%= @movie.title %></h1>
 
 <div id="shows">
   <% @shows.each do |show| %>
     <%= render show %>
     <p>
-      <%= link_to "Show this show", show %>
+      <%= link_to "Book this show", movie_show_path(@movie, show) %>
     </p>
   <% end %>
 </div>
-
-<%= link_to "New show", new_show_path %>
+<% if current_user&.is_admin %>
+  <%= link_to "New show", new_movie_show_path(@movie) %>
+<% end %>
+<%= link_to "Back to Movies", movies_path %>
