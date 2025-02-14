@@ -18,5 +18,7 @@
 
 <% if session[:user_id] == @user.id %>
   <%= link_to "Edit Profile", edit_user_path(@user) %> |
-  <%= link_to "Delete Account", user_path(@user), method: :delete, data: { confirm: "Are you sure you want to delete your account?" } %>
+  <%#= link_to "Delete Account", delete_user_path(@user), method: :delete, data: { confirm: "Are you sure you want to delete your account?" } %>
+  <%= link_to "Delete Account", delete_user_path(@user), onclick: "return confirm('Are you sure you want to delete your account? This action cannot be undone.');" %>
+
 <% end %>

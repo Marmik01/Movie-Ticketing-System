@@ -54,15 +54,15 @@ class UsersController < ApplicationController
 
   # DELETE /users/1 or /users/1.json
   def destroy
-    @user.destroy
-
-    # respond_to do |format|
-    #   format.html { redirect_to users_path, status: :see_other, notice: "User was successfully destroyed." }
-    #   format.json { head :no_content }
-    # end
-    session[:user_id] = nil  # Log out user after account deletion
-    flash[:notice] = "Account deleted successfully."
-    redirect_to root_path
+    if session[:user_id] == @user.id
+      @user.destroy
+      session[:user_id] = nil  # Log out the user after deleting the account
+      flash[:notice] = "Your account has been deleted successfully."
+      redirect_to root_path
+    else
+      flash[:alert] = "You are not authorized to delete this account!"
+      redirect_to root_path
+    end
   end
 
   private

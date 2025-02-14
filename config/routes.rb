@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   get "logout", to: "sessions#destroy"  # Temporary GET logout route
   delete "logout", to: "sessions#destroy"
 
+  get "users/:id/delete", to: "users#destroy", as: "delete_user"
+  # delete "users/:id", to: "users#destroy", as: "delete_user"
+
   resources :tickets
   resources :shows
   resources :screens
