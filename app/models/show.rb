@@ -17,15 +17,8 @@ class Show < ApplicationRecord
 
   # Set available seats based on screen capacity before saving
   before_validation :set_seat_capacity
-
-  before_validation :ensure_time_is_correct_format
-
   private
 
-  def ensure_time_is_correct_format
-    self.time = Time.zone.parse(time.to_s).strftime("%H:%M:%S") if time.present?
-  end
-c
   def prevent_movie_change
     if movie_id_changed?
       errors.add(:movie_id, "cannot be changed after the show is created.")
