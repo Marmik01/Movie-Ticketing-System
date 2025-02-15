@@ -1,14 +1,19 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy ]
   before_action :authorize_user, only: [ :edit, :update, :destroy ]
+  before_action :require_admin, only: [:index]
 
   # GET /users or /users.json
   def index
-    @users = User.all
+    @users = User.where(is_admin: false)
   end
 
   # GET /users/1 or /users/1.json
   def show
+    unless session[:user_id] == @user.id || current_user&.is_admin
+      flash[:alert] = "Unauthorized Access!"
+      redirect_to root_path
+    end
   end
 
   # GET /users/new
