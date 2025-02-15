@@ -1,12 +1,13 @@
 <p style="color: green"><%= notice %></p>
 
 <%= render @movie %>
-
+<div>
+<%= link_to "View Shows", movie_shows_path(@movie), class: "btn btn-info" %>
+</div>
 <div>
   <%= link_to "Back to movies", movies_path %> |
   <% if current_user&.is_admin %>
     <%= link_to "Edit", edit_movie_path(@movie), class: "btn btn-warning" %> |
-    <%= link_to "Delete", movie_path(@movie), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %> |
+    <%= button_to "Destroy this show", movie_path(@movie), method: :delete %>
   <% end %>
-  <%= link_to "View Shows", movie_shows_path(@movie), class: "btn btn-info" %>
 </div>

@@ -13,8 +13,9 @@ Rails.application.routes.draw do
   # delete "users/:id", to: "users#destroy", as: "delete_user"
 
   resources :tickets
-  resources :shows
-  resources :screens
+  resources :screens, only: [] do
+    get "capacity", on: :member
+  end
   resources :movies do
     resources :shows
   end

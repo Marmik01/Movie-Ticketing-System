@@ -1,5 +1,14 @@
 class ScreensController < ApplicationController
-  before_action :set_screen, only: %i[ show edit update destroy ]
+  before_action :set_screen, only: [:capacity]
+
+  def capacity
+    screen = Screen.find_by(id: params[:id])
+    if screen
+      render json: { capacity: screen.capacity }
+    else
+      render json: { error: "Screen not found" }, status: :not_found
+    end
+  end
 
   # GET /screens or /screens.json
   def index
