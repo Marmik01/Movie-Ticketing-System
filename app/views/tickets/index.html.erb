@@ -8,9 +8,8 @@
   <% @tickets.each do |ticket| %>
     <%= render ticket %>
     <p>
-      <%= link_to "Show this ticket", ticket %>
+      <%= link_to "Show this ticket", movie_show_ticket_path(ticket.show.movie, ticket.show, ticket) %>
     </p>
   <% end %>
 </div>
 
-<%= link_to "New ticket", new_ticket_path %>

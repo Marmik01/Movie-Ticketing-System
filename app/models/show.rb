@@ -1,6 +1,7 @@
 class Show < ApplicationRecord
   belongs_to :movie
   belongs_to :screen
+  has_many :tickets, dependent: :destroy 
 
   validates :movie_id, presence: true
   validates :screen_id, presence: true
@@ -8,6 +9,13 @@ class Show < ApplicationRecord
   validates :time, presence: true
   validates :available_seats, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :ticket_price, numericality: { greater_than_or_equal_to: 0 }
+
+  def reduce_seat_count!
+    update_column(:available_seats, available_seats - 1)
+  end
+  def increase_seat_count!
+    update_column(:available_seats, available_seats + 1)
+  end
 
   # Prevent changing movie_id after creation
   before_update :prevent_movie_change

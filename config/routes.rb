@@ -9,12 +9,14 @@ Rails.application.routes.draw do
   get "logout", to: "sessions#destroy"  # Temporary GET logout route
   delete "logout", to: "sessions#destroy"
 
-  resources :tickets
+
   resources :screens, only: [] do
     get "capacity", on: :member
   end
   resources :movies do
-    resources :shows
+    resources :shows do
+      resources :tickets, only: [:index, :show, :update, :create]
+    end
   end
   resources :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

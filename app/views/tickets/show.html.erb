@@ -3,8 +3,14 @@
 <%= render @ticket %>
 
 <div>
-  <%= link_to "Edit this ticket", edit_ticket_path(@ticket) %> |
-  <%= link_to "Back to tickets", tickets_path %>
+  <%= link_to "Back to shows", movie_show_path(@ticket.show.movie, @ticket.show) %>
 
-  <%= button_to "Destroy this ticket", @ticket, method: :delete %>
+  <% if @ticket.status != "Cancelled" %>
+    <%= form_with model: @ticket, url: movie_show_ticket_path(@ticket.show.movie, @ticket.show, @ticket), method: :patch do |form| %>
+      <%= form.hidden_field :status, value: "Cancelled" %>
+      <%= form.submit "Cancel Ticket", class: "btn btn-warning", data: { confirm: "Are you sure you want to cancel this ticket?" } %>
+    <% end %>
+  <% else %>
+    <p style="color: red;"><strong>This ticket has been cancelled.</strong></p>
+  <% end %>
 </div>
