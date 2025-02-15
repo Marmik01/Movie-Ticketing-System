@@ -3,7 +3,11 @@
 <%= render @ticket %>
 
 <div>
-  <%= link_to "Back to shows", movie_show_path(@ticket.show.movie, @ticket.show) %>
+  <% if request.referer&.include?("/tickets") %>
+    <%= link_to "Back to Tickets", tickets_path, class: "btn btn-secondary" %>
+  <% else %>
+    <%= link_to "Back to Shows", movie_show_path(@ticket.show.movie, @ticket.show), class: "btn btn-secondary" %>
+  <% end %>
 
   <% if @ticket.status != "Cancelled" %>
     <%= form_with model: @ticket, url: movie_show_ticket_path(@ticket.show.movie, @ticket.show, @ticket), method: :patch do |form| %>

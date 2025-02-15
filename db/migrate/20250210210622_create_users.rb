@@ -8,7 +8,7 @@ class CreateUsers < ActiveRecord::Migration[8.0]
       t.string :phone
       t.text :address
       t.string :credit_card_info
-      t.boolean :is_admin
+      t.boolean :is_admin, default: false
 
       t.timestamps
     end

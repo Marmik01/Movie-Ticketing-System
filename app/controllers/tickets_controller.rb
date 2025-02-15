@@ -1,10 +1,16 @@
 class TicketsController < ApplicationController
+  before_action :require_admin, only: [:index]
   before_action :set_ticket, only: %i[ show  update destroy ]
   before_action :set_show, only: [:create]
 
   # GET /tickets or /tickets.json
   def index
-    @tickets = Ticket.all
+    if current_user.is_admin
+      @tickets = Ticket.includes(:show, { show: :movie }, :user).all
+    else
+      @tickets = current_user.tickets.includes(:show, { show: :movie })
+    end
+
   end
 
   # GET /tickets/1 or /tickets/1.json
@@ -77,6 +83,13 @@ class TicketsController < ApplicationController
     def set_ticket
       @ticket = Ticket.find(params.expect(:id))
     end
+
+    def require_admin
+      unless current_user
+        redirect_to root_path, alert: "Unauthorized Access!"
+      end
+    end
+    
 
     # Only allow a list of trusted parameters through.
     def ticket_params
