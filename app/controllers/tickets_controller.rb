@@ -1,5 +1,6 @@
 class TicketsController < ApplicationController
-  before_action :set_ticket, only: %i[ show edit update destroy ]
+  before_action :set_ticket, only: %i[ show  update destroy ]
+  before_action :set_show, only: [:create]
 
   # GET /tickets or /tickets.json
   def index
@@ -10,36 +11,38 @@ class TicketsController < ApplicationController
   def show
   end
 
-  # GET /tickets/new
-  def new
-    @ticket = Ticket.new
-  end
-
-  # GET /tickets/1/edit
-  def edit
-  end
-
   # POST /tickets or /tickets.json
   def create
-    @ticket = Ticket.new(ticket_params)
+    if @show.available_seats > 0
+      @ticket = @show.tickets.new(
+        user: current_user,
+        confirmation_number: generate_unique_confirmation_number,
+        status: "Booked"
+      )
 
-    respond_to do |format|
-      if @ticket.save
-        format.html { redirect_to @ticket, notice: "Ticket was successfully created." }
-        format.json { render :show, status: :created, location: @ticket }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @ticket.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @ticket.save
+          @show.reduce_seat_count!
+          format.html { redirect_to movie_show_ticket_path(@show.movie, @show, @ticket), notice: "Ticket purchased successfully!" }
+          format.json { render :show, status: :created, location: movie_show_ticket_url(@show.movie, @show, @ticket) }
+        else
+          format.html { redirect_to show_path(@show), alert: "Error purchasing ticket." }
+          format.json { render json: @ticket.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      redirect_to show_path(@show), alert: "No available seats left."
     end
   end
 
   # PATCH/PUT /tickets/1 or /tickets/1.json
   def update
     respond_to do |format|
-      if @ticket.update(ticket_params)
-        format.html { redirect_to @ticket, notice: "Ticket was successfully updated." }
-        format.json { render :show, status: :ok, location: @ticket }
+      if ticket_params[:status] == "Cancelled" && @ticket.status != "Cancelled"
+        @ticket.update(status: "Cancelled")
+        @ticket.show.increase_seat_count!
+        format.html { redirect_to movie_show_ticket_path(@ticket.show.movie, @ticket.show, @ticket), notice: "Ticket was successfully updated." }
+        format.json { render :show, status: :ok, location: movie_show_ticket_path(@ticket.show.movie, @ticket.show, @ticket) }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @ticket.errors, status: :unprocessable_entity }
@@ -58,6 +61,18 @@ class TicketsController < ApplicationController
   end
 
   private
+
+    def set_show
+      @show = Show.find(params[:show_id])
+    end
+
+    def generate_unique_confirmation_number
+      loop do
+        confirmation_number = SecureRandom.hex(8).upcase
+        break confirmation_number unless Ticket.exists?(confirmation_number: confirmation_number)
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_ticket
       @ticket = Ticket.find(params.expect(:id))
@@ -65,6 +80,6 @@ class TicketsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def ticket_params
-      params.expect(ticket: [ :user_id, :show_id, :confirmation_number, :status ])
+      params.expect(ticket: [:status])
     end
 end

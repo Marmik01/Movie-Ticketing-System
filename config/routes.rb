@@ -12,12 +12,14 @@ Rails.application.routes.draw do
   get "users/:id/delete", to: "users#destroy", as: "delete_user"
   # delete "users/:id", to: "users#destroy", as: "delete_user"
 
-  resources :tickets
+
   resources :screens, only: [] do
     get "capacity", on: :member
   end
   resources :movies do
-    resources :shows
+    resources :shows do
+      resources :tickets, only: [:index, :show, :update, :create]
+    end
   end
   resources :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
