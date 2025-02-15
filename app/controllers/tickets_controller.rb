@@ -58,12 +58,15 @@ class TicketsController < ApplicationController
 
   # DELETE /tickets/1 or /tickets/1.json
   def destroy
+    unless current_user.is_admin
+      flash[:alert] = "Unauthorized action!"
+      redirect_to tickets_path and return
+    end
+
     @ticket.destroy!
 
-    respond_to do |format|
-      format.html { redirect_to tickets_path, status: :see_other, notice: "Ticket was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    flash[:notice] = "Ticket was successfully deleted."
+    redirect_to tickets_path
   end
 
   private
@@ -81,7 +84,7 @@ class TicketsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_ticket
-      @ticket = Ticket.find(params.expect(:id))
+      @ticket = Ticket.find(params[:id])
     end
 
     def require_admin

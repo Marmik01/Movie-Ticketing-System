@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get "users/:id/delete", to: "users#destroy", as: "delete_user"
   # delete "users/:id", to: "users#destroy", as: "delete_user"
 
+  get "tickets/:id/delete", to: "tickets#destroy", as: "delete_ticket"
 
   resources :screens, only: [] do
     get "capacity", on: :member
@@ -23,7 +24,7 @@ Rails.application.routes.draw do
   end
   resources :users
   #for admin use
-  resources :tickets, only: [:index, :show, :update]
+  resources :tickets, only: [:index, :show, :update, :destroy]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
