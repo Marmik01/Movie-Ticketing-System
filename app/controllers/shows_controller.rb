@@ -73,9 +73,11 @@ class ShowsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_show
-      @show = Show.find(params.expect(:id))
+      @show = Show.find(params[:id])
+      @movie = @show.movie  # Ensure @movie is set
     end
-    #only admin and create, update and destroy the shows
+
+  #only admin and create, update and destroy the shows
     def require_admin
       unless current_user&.is_admin
         flash[:alert] = "Access denied! Only admins can manage shows."

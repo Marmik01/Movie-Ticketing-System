@@ -14,6 +14,8 @@ Rails.application.routes.draw do
 
   get "movies/:id/delete", to: "movies#destroy", as: "delete_movie"
 
+  get "movies/:movie_id/shows/:id/delete", to: "shows#destroy", as: "delete_movie_show"
+
 
   get "tickets/:id/delete", to: "tickets#destroy", as: "delete_ticket"
 

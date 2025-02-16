@@ -7,6 +7,7 @@
 <br>
 
 <div>
-  <%= link_to "Show this show", @show %> |
-  <%= link_to "Back to shows", shows_path %>
+  <%= link_to "Show this show", movie_show_path(@movie, @show) %> |
+  <%= link_to "Back to shows", movie_shows_path(@movie) %>
 </div>
+

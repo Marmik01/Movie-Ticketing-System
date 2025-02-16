@@ -1,4 +1,6 @@
-<%= form_with(model: show,url: movie_shows_path(@movie), method: :post) do |form| %>
+<%#= form_with(model: show,url: movie_shows_path(@movie), method: :post) do |form| %>
+<%= form_with(model: show, url: @show.persisted? ? movie_show_path(@movie, @show) : movie_shows_path(@movie), method: @show.persisted? ? :patch : :post) do |form| %>
+
   <% if show.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(show.errors.count, "error") %> prohibited this show from being saved:</h2>
