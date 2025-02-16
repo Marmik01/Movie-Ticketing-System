@@ -39,6 +39,6 @@ RSpec.describe Ticket, type: :model do
 
     expect(ticket.user.username).to eq("testuser")
     expect(ticket.user.email).to eq("test@example.com")
-    expect(ticket.user.phone).to be_nil 
+    expect(ticket.user.phone).to be_nil
   end
 end

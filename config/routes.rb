@@ -22,7 +22,7 @@ Rails.application.routes.draw do
       resources :tickets, only: [:index, :show, :update, :create]
     end
   end
-  resources :users
+  resources :users, except: [:destroy] #ensure admin can create users
   #for admin use
   resources :tickets, only: [:index, :show, :update, :destroy]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
