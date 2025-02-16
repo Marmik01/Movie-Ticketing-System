@@ -87,6 +87,12 @@ class UsersController < ApplicationController
     if current_user.is_admin? || session[:user_id] == @user.id
       @user.destroy
       flash[:notice] = "User account deleted successfully."
+
+      if session[:user_id] == @user.id
+        session[:user_id] = nil  # Clear session if user deleted their own account
+        redirect_to login_path and return
+      end
+
       redirect_to users_path
     else
       flash[:alert] = "You are not authorized to delete this user!"
