@@ -27,6 +27,7 @@
       <% if session[:user_id] %>
         <p>Welcome, <%= current_user.username %> |
         <%= link_to "Home", movies_path %> |
+        <%= link_to "View Profile", user_path(current_user), class: "btn btn-secondary" %> |
         <%= link_to "Edit Profile", edit_user_path(current_user) %> |
         <%= link_to "Logout", logout_path, method: :delete, data: { "turbo-method": :delete } %> |
 
