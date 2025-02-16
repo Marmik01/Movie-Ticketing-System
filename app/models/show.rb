@@ -1,7 +1,7 @@
 class Show < ApplicationRecord
   belongs_to :movie
   belongs_to :screen
-  has_many :tickets, dependent: :destroy 
+  has_many :tickets, dependent: :destroy
 
   validates :movie_id, presence: true
   validates :screen_id, presence: true
@@ -11,10 +11,13 @@ class Show < ApplicationRecord
   validates :ticket_price, numericality: { greater_than_or_equal_to: 0 }
 
   def reduce_seat_count!
-    update_column(:available_seats, available_seats - 1)
+    # update_column(:available_seats, available_seats - 1)
+    decrement!(:available_seats) #  This properly decrements with ActiveRecord
+
   end
   def increase_seat_count!
-    update_column(:available_seats, available_seats + 1)
+    # update_column(:available_seats, available_seats + 1)
+    increment!(:available_seats) #  This properly increments with ActiveRecord
   end
 
   # Prevent changing movie_id after creation

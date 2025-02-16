@@ -38,7 +38,7 @@ class UsersController < ApplicationController
   #     render :new
   #   end
   # end
-  
+
   # POST /users or /users.json
   def create
     @user = User.new(user_params)
@@ -66,7 +66,6 @@ class UsersController < ApplicationController
     if @user.update(user_params)
         # format.html { redirect_to @user, notice: "User was successfully updated." }
         # format.json { render :show, status: :ok, location: @user }
-      Rails.logger.debug "Redirecting to user profile: #{@user.id}"
       flash[:notice] = "Profile updated successfully!"
       redirect_to user_path(@user)
     else
@@ -98,7 +97,6 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      Rails.logger.debug "Fetching user with ID: #{params[:id]}"
       @user = User.find_by(id: params[:id])
       if @user.nil?
         flash[:alert] = "User not found."
