@@ -51,11 +51,14 @@ class MoviesController < ApplicationController
 
   # DELETE /movies/1 or /movies/1.json
   def destroy
-    @movie.destroy!
+    @movie = Movie.find(params[:id])
 
-    respond_to do |format|
-      format.html { redirect_to movies_path, status: :see_other, notice: "Movie was successfully destroyed." }
-      format.json { head :no_content }
+    if @movie.destroy
+      flash[:notice] = "Movie was successfully deleted."
+      redirect_to movies_path
+    else
+      flash[:alert] = "Error deleting movie."
+      redirect_to movie_path(@movie)
     end
   end
 

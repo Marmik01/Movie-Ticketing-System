@@ -28,7 +28,7 @@
         <p>Welcome, <%= current_user.username %> |
         <%= link_to "Home", movies_path %> |
         <%= link_to "Edit Profile", edit_user_path(current_user) %> |
-        <%= link_to "Logout", logout_path, method: :delete, data: { "turbo-method": :delete } %> | 
+        <%= link_to "Logout", logout_path, method: :delete, data: { "turbo-method": :delete } %> |
 
         <% if current_user.is_admin %>
           | <%= link_to "Users List", users_path %>

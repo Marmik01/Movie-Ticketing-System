@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   get "users/:id/delete", to: "users#destroy", as: "delete_user"
   # delete "users/:id", to: "users#destroy", as: "delete_user"
 
+  get "movies/:id/delete", to: "movies#destroy", as: "delete_movie"
+
+
   get "tickets/:id/delete", to: "tickets#destroy", as: "delete_ticket"
 
   resources :screens, only: [] do
