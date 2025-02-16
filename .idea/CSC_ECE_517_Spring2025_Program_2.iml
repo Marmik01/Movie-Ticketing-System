@@ -507,14 +507,12 @@
         </properties>
         <CLASSES>
           <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/bcrypt_pbkdf-1.1.1/ext" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/bcrypt_pbkdf-1.1.1/lib" />
           <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/bcrypt_pbkdf-1.1.1/test" />
           <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/bcrypt_pbkdf-1.1.1/.github" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
           <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/bcrypt_pbkdf-1.1.1/ext" />
-          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/bcrypt_pbkdf-1.1.1/lib" />
           <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/bcrypt_pbkdf-1.1.1/test" />
           <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/bcrypt_pbkdf-1.1.1/.github" />
         </SOURCES>
@@ -959,6 +957,47 @@
           <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/debug-1.10.0/exe" />
           <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/debug-1.10.0/ext" />
           <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/debug-1.10.0/misc" />
+        </excluded>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="diff-lcs (v1.6.0) [path][gem]" type="rubylib">
+        <properties>
+          <option name="additionalInfo">
+            <AdditionalInfo>
+              <option name="authors" value="N/A" />
+              <option name="email" value="N/A" />
+              <option name="homepage" value="N/A" />
+              <option name="summary" value="N/A" />
+            </AdditionalInfo>
+          </option>
+          <option name="fromPath" value="true" />
+          <option name="name" value="diff-lcs" />
+          <option name="requirePaths">
+            <list>
+              <option value="lib" />
+            </list>
+          </option>
+          <option name="url" value="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/diff-lcs-1.6.0" />
+          <option name="version" value="1.6.0" />
+        </properties>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/diff-lcs-1.6.0/bin" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/diff-lcs-1.6.0/lib" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/diff-lcs-1.6.0/docs" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/diff-lcs-1.6.0/spec" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/diff-lcs-1.6.0/bin" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/diff-lcs-1.6.0/lib" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/diff-lcs-1.6.0/docs" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/diff-lcs-1.6.0/spec" />
+        </SOURCES>
+        <excluded>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/diff-lcs-1.6.0/bin" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/diff-lcs-1.6.0/docs" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/diff-lcs-1.6.0/spec" />
         </excluded>
       </library>
     </orderEntry>
@@ -2902,6 +2941,161 @@
         <excluded>
           <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/rexml-3.4.0/doc" />
         </excluded>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="rspec-core (v3.13.3) [path][gem]" type="rubylib">
+        <properties>
+          <option name="additionalInfo">
+            <AdditionalInfo>
+              <option name="authors" value="N/A" />
+              <option name="email" value="N/A" />
+              <option name="homepage" value="N/A" />
+              <option name="summary" value="N/A" />
+            </AdditionalInfo>
+          </option>
+          <option name="fromPath" value="true" />
+          <option name="name" value="rspec-core" />
+          <option name="requirePaths">
+            <list>
+              <option value="lib" />
+            </list>
+          </option>
+          <option name="url" value="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/rspec-core-3.13.3" />
+          <option name="version" value="3.13.3" />
+        </properties>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/rspec-core-3.13.3/exe" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/rspec-core-3.13.3/lib" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/rspec-core-3.13.3/exe" />
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/rspec-core-3.13.3/lib" />
+        </SOURCES>
+        <excluded>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/rspec-core-3.13.3/exe" />
+        </excluded>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="rspec-expectations (v3.13.3) [path][gem]" type="rubylib">
+        <properties>
+          <option name="additionalInfo">
+            <AdditionalInfo>
+              <option name="authors" value="N/A" />
+              <option name="email" value="N/A" />
+              <option name="homepage" value="N/A" />
+              <option name="summary" value="N/A" />
+            </AdditionalInfo>
+          </option>
+          <option name="fromPath" value="true" />
+          <option name="name" value="rspec-expectations" />
+          <option name="requirePaths">
+            <list>
+              <option value="lib" />
+            </list>
+          </option>
+          <option name="url" value="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/rspec-expectations-3.13.3" />
+          <option name="version" value="3.13.3" />
+        </properties>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/rspec-expectations-3.13.3/lib" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/rspec-expectations-3.13.3/lib" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="rspec-mocks (v3.13.2) [path][gem]" type="rubylib">
+        <properties>
+          <option name="additionalInfo">
+            <AdditionalInfo>
+              <option name="authors" value="N/A" />
+              <option name="email" value="N/A" />
+              <option name="homepage" value="N/A" />
+              <option name="summary" value="N/A" />
+            </AdditionalInfo>
+          </option>
+          <option name="fromPath" value="true" />
+          <option name="name" value="rspec-mocks" />
+          <option name="requirePaths">
+            <list>
+              <option value="lib" />
+            </list>
+          </option>
+          <option name="url" value="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/rspec-mocks-3.13.2" />
+          <option name="version" value="3.13.2" />
+        </properties>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/rspec-mocks-3.13.2/lib" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/rspec-mocks-3.13.2/lib" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="rspec-rails (v7.1.1) [path][gem]" type="rubylib">
+        <properties>
+          <option name="additionalInfo">
+            <AdditionalInfo>
+              <option name="authors" value="N/A" />
+              <option name="email" value="N/A" />
+              <option name="homepage" value="N/A" />
+              <option name="summary" value="N/A" />
+            </AdditionalInfo>
+          </option>
+          <option name="fromPath" value="true" />
+          <option name="name" value="rspec-rails" />
+          <option name="requirePaths">
+            <list>
+              <option value="lib" />
+            </list>
+          </option>
+          <option name="url" value="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/rspec-rails-7.1.1" />
+          <option name="version" value="7.1.1" />
+        </properties>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/rspec-rails-7.1.1/lib" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/rspec-rails-7.1.1/lib" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="rspec-support (v3.13.2) [path][gem]" type="rubylib">
+        <properties>
+          <option name="additionalInfo">
+            <AdditionalInfo>
+              <option name="authors" value="N/A" />
+              <option name="email" value="N/A" />
+              <option name="homepage" value="N/A" />
+              <option name="summary" value="N/A" />
+            </AdditionalInfo>
+          </option>
+          <option name="fromPath" value="true" />
+          <option name="name" value="rspec-support" />
+          <option name="requirePaths">
+            <list>
+              <option value="lib" />
+            </list>
+          </option>
+          <option name="url" value="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/rspec-support-3.13.2" />
+          <option name="version" value="3.13.2" />
+        </properties>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/rspec-support-3.13.2/lib" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/vendor/bundle/ruby/3.4.0/gems/rspec-support-3.13.2/lib" />
+        </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library">
