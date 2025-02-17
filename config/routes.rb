@@ -1,4 +1,35 @@
 Rails.application.routes.draw do
+  root "sessions#new"
+
+  get "signup", to: "users#new"      # Route to show sign-up form
+  post "signup", to: "users#create"  # Route to handle form submission
+
+  get "login", to: "sessions#new"
+  post "login", to: "sessions#create"
+  get "logout", to: "sessions#destroy"  # Temporary GET logout route
+  delete "logout", to: "sessions#destroy"
+
+  get "users/:id/delete", to: "users#destroy", as: "delete_user"
+  # delete "users/:id", to: "users#destroy", as: "delete_user"
+
+  get "movies/:id/delete", to: "movies#destroy", as: "delete_movie"
+
+  get "movies/:movie_id/shows/:id/delete", to: "shows#destroy", as: "delete_movie_show"
+
+
+  get "tickets/:id/delete", to: "tickets#destroy", as: "delete_ticket"
+
+  resources :screens, only: [] do
+    get "capacity", on: :member
+  end
+  resources :movies do
+    resources :shows do
+      resources :tickets, only: [:index, :show, :update, :create]
+    end
+  end
+  resources :users, except: [:destroy] #ensure admin can create users
+  #for admin use
+  resources :tickets, only: [:index, :show, :update, :destroy]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

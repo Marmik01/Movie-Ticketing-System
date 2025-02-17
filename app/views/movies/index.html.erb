@@ -1,0 +1,39 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Movies" %>
+
+<h1 class="text-center mb-4">Movies</h1>
+
+<div class="container">
+  <div class="row">
+    <% @movies.each do |movie| %>
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h3 class="card-title"><%= movie.title %></h3>
+            <p class="card-text">
+              <strong>Genre:</strong> <%= movie.genre %> <br>
+              <strong>Duration:</strong> <%= movie.duration %> min <br>
+              <strong>Language:</strong> <%= movie.language %> <br>
+              <strong>Rating:</strong> <%= movie.rating %> <br>
+              <strong>Release Date:</strong> <%= movie.release_date.strftime('%B %d, %Y') %>
+            </p>
+            <div class="d-flex justify-content-between">
+              <%= link_to "View", movie, class: "btn btn-info btn-sm" %>
+              <% if current_user&.is_admin %>
+                <%= link_to "Edit", edit_movie_path(movie), class: "btn btn-warning btn-sm" %>
+                <%= link_to "Delete", delete_movie_path(movie), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<% if current_user&.is_admin %>
+  <div class="text-center mt-4">
+    <%= link_to "New Movie", new_movie_path, class: "btn btn-primary" %>
+  </div>
+<% end %>

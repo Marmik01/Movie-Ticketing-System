@@ -1,0 +1,18 @@
+current directory: C:/Users/marmi/Documents/GitHub/CSC_ECE_517_Spring2025_Program_2/vendor/bundle/ruby/3.4.0/gems/nio4r-2.7.4/ext/nio4r
+C:/Ruby34-x64/bin/ruby.exe extconf.rb
+
+current directory: C:/Users/marmi/Documents/GitHub/CSC_ECE_517_Spring2025_Program_2/vendor/bundle/ruby/3.4.0/gems/nio4r-2.7.4/ext/nio4r
+make DESTDIR\= sitearchdir\=./.gem.20250210-9036-sw0d5g sitelibdir\=./.gem.20250210-9036-sw0d5g clean
+make: *** No rule to make target 'clean'.  Stop.
+
+current directory: C:/Users/marmi/Documents/GitHub/CSC_ECE_517_Spring2025_Program_2/vendor/bundle/ruby/3.4.0/gems/nio4r-2.7.4/ext/nio4r
+make DESTDIR\= sitearchdir\=./.gem.20250210-9036-sw0d5g sitelibdir\=./.gem.20250210-9036-sw0d5g
+make: Nothing to be done for 'all'.
+
+current directory: C:/Users/marmi/Documents/GitHub/CSC_ECE_517_Spring2025_Program_2/vendor/bundle/ruby/3.4.0/gems/nio4r-2.7.4/ext/nio4r
+make DESTDIR\= sitearchdir\=./.gem.20250210-9036-sw0d5g sitelibdir\=./.gem.20250210-9036-sw0d5g install
+make: Nothing to be done for 'install'.
+
+current directory: C:/Users/marmi/Documents/GitHub/CSC_ECE_517_Spring2025_Program_2/vendor/bundle/ruby/3.4.0/gems/nio4r-2.7.4/ext/nio4r
+make DESTDIR\= sitearchdir\=./.gem.20250210-9036-sw0d5g sitelibdir\=./.gem.20250210-9036-sw0d5g clean
+make: *** No rule to make target 'clean'.  Stop.

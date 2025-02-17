@@ -1,0 +1,52 @@
+<%#= form_with(model: show,url: movie_shows_path(@movie), method: :post) do |form| %>
+<%= form_with(model: show, url: @show.persisted? ? movie_show_path(@movie, @show) : movie_shows_path(@movie), method: @show.persisted? ? :patch : :post) do |form| %>
+
+  <% if show.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(show.errors.count, "error") %> prohibited this show from being saved:</h2>
+
+      <ul>
+        <% show.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <!-- Display Movie Title (Read-Only) -->
+  <div>
+    <%= form.label :movie_id, "Movie Title", style: "display: block" %>
+    <%= text_field_tag :movie_title, show.movie.title, readonly: true %>
+    <%= form.hidden_field :movie_id, value: show.movie_id %> <!-- Hidden to pass movie_id -->
+  </div>
+
+  <!-- Dropdown for Available Screens -->
+  <div>
+    <%= form.label :screen_id, "Select Screen (Capacity)", style: "display: block" %>
+    <%= form.select :screen_id, Screen.all.map { |s| ["#{s.name} (#{s.capacity} seats)", s.id] }, { prompt: "Select a screen" }, id: "screen_select" %>
+  </div>
+  </div>
+
+  <!-- Date Selection (Restricting Dates Before Release Date) -->
+  <div>
+    <%= form.label :date, style: "display: block" %>
+    <%= form.date_field :date %>
+    <small style="color: red;">⚠ Show date must be on or after <%= show.movie.release_date %></small>
+  </div>
+
+
+  <div>
+  <%= form.label :time, style: "display: block" %>
+  <%= form.time_field :time, value: show.time&.strftime("%H:%M") %>
+</div>
+
+  <div>
+    <%= form.label :ticket_price, style: "display: block" %>
+    <%= form.text_field :ticket_price %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+

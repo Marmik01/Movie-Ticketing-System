@@ -1,0 +1,13 @@
+<% content_for :title, "Editing show" %>
+
+<h1>Editing show</h1>
+
+<%= render "form", show: @show %>
+
+<br>
+
+<div>
+  <%= link_to "Show this show", movie_show_path(@movie, @show) %> |
+  <%= link_to "Back to shows", movie_shows_path(@movie) %>
+</div>
+

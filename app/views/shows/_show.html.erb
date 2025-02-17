@@ -1,0 +1,28 @@
+<div id="<%= dom_id show %>">
+
+  <p>
+    <strong>Screen:</strong>
+    <%= show.screen_id %>
+  </p>
+
+  <p>
+    <strong>Date:</strong>
+    <%= show.date.strftime("%-d %B %Y") %>
+  </p>
+
+  <p>
+    <strong>Time:</strong>
+    <%= show.time.strftime("%H:%M") %>
+  </p>
+
+  <p>
+    <strong>Available seats:</strong>
+    <%= show.available_seats %>
+  </p>
+
+  <p>
+    <strong>Ticket price:</strong>
+    <%= show.ticket_price %>
+  </p>
+
+</div>

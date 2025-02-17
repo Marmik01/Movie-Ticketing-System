@@ -1,0 +1,29 @@
+<!--<p style="color: green"><%#= notice %></p>-->
+
+<%#= render @user %>
+
+<!--<div>-->
+<!--  <%#= link_to "Edit this user", edit_user_path(@user) %> |-->
+  <%#= link_to "Back to users", users_path %>
+
+  <%#= button_to "Destroy this user", @user, method: :delete %>
+<!--</div>-->
+
+<h2>Profile</h2>
+<p><strong>Username:</strong> <%= @user.username %></p>
+<p><strong>Name:</strong> <%= @user.name %></p>
+<p><strong>Email:</strong> <%= @user.email %></p>
+<p><strong>Phone:</strong> <%= @user.phone %></p>
+<p><strong>Address:</strong> <%= @user.address %></p>
+<p><strong>Credit Card Info:</strong> <%= @user.credit_card_info %></p>
+
+<% if session[:user_id] == @user.id && !@user.is_admin? %>
+  <%= link_to "Edit Profile", edit_user_path(@user) %> |
+  <%= link_to "Delete Account", delete_user_path(@user), onclick: "return confirm('Are you sure you want to delete your account? This action cannot be undone.');" %>
+<% elsif current_user&.is_admin? %>
+  <%= link_to "Edit User", edit_user_path(@user) %> |
+  <% unless @user.is_admin? %>
+    <%= link_to "Delete User", delete_user_path(@user), data: { confirm: "Are you sure? This action is irreversible." } %>
+  <% end %>
+<% end %>
+

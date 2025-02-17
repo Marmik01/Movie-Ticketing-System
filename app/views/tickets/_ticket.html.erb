@@ -1,0 +1,37 @@
+<div id="<%= dom_id ticket %>">
+  <p>
+    <strong>User:</strong>
+    <%= ticket.user.name %>
+  </p>
+
+  <p>
+    <strong>Movie:</strong> 
+    <%= ticket.show.movie.title %> 
+  </p>
+
+  <p>
+    <strong>Show:</strong>
+    <%= ticket.show.screen.name %>
+  </p>
+
+  <p>
+  <strong>Date:</strong> 
+  <%= ticket.show.date.strftime("%-d %B %Y")  %>
+  </p>
+
+  <p>
+  <strong>Time:</strong>
+  <%= ticket.show.time.strftime("%H:%M") %>
+  </p>
+
+  <p>
+    <strong>Confirmation number:</strong>
+    <%= ticket.confirmation_number %>
+  </p>
+
+  <p>
+    <strong>Status:</strong>
+    <%= ticket.status %>
+  </p>
+
+</div>
