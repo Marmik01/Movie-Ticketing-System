@@ -13,6 +13,10 @@
 
 <h2>Edit Profile</h2>
 
+<% if flash[:alert] %>
+  <p style="color: red;"><%= flash[:alert] %></p>
+<% end %>
+
 <%= form_with model: @user, local: true do |form| %>
   <% if @user.is_admin? %>
     <p><strong>Username:</strong> <%= @user.username %> (Cannot be changed)</p>

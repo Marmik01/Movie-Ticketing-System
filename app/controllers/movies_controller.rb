@@ -5,11 +5,21 @@ class MoviesController < ApplicationController
 
   # GET /movies or /movies.json
   def index
-    @movies = Movie.all
+    if current_user&.is_admin
+      @movies = Movie.all # Admins see all movies
+    else
+      @movies = Movie.where("release_date <= ?", Date.today) # Users see only released movies
+    end
   end
 
   # GET /movies/1 or /movies/1.json
   def show
+    @movie = Movie.find_by(id: params[:id])
+
+    if @movie.nil? || (!current_user&.is_admin && @movie.release_date > Date.today)
+      flash[:alert] = "Movie not found or not yet released."
+      redirect_to movies_path
+    end
   end
 
   # GET /movies/new

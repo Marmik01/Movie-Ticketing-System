@@ -1,5 +1,9 @@
 <p class="text-success"><%= notice %></p>
 
+<% if flash[:alert] %>
+  <p style="color: red;"><%= flash[:alert] %></p>
+<% end %>
+
 <div class="container mt-4">
   <div class="card shadow-sm">
     <div class="card-body">

@@ -6,11 +6,24 @@ class ShowsController < ApplicationController
 
   # GET /shows or /shows.json
   def index
-    @shows = @movie ? @movie.shows : Show.all
+    if current_user&.is_admin
+      @shows = @movie.shows # Admins see all shows
+    else
+      if @movie.release_date > Date.today
+        flash[:alert] = "You cannot view shows for an unreleased movie."
+        redirect_to movies_path and return
+      end
+
+      @shows = @movie.shows.where("available_seats > 0") # Users see only available shows for released movies
+    end
   end
 
   # GET /shows/1 or /shows/1.json
   def show
+    unless current_user&.is_admin || (@show.available_seats > 0 && @show.movie.release_date <= Date.today)
+      flash[:alert] = "This show is not available."
+      redirect_to movies_path
+    end
   end
 
   # GET /shows/new
@@ -65,7 +78,7 @@ class ShowsController < ApplicationController
 
     def set_movie
       @movie = Movie.find_by(id: params[:movie_id])
-      if @movie.nil?
+      if @movie.nil? || (!current_user&.is_admin && @movie.release_date > Date.today)
         flash[:alert] = "Movie not found"
         redirect_to movies_path and return
       end
@@ -75,6 +88,11 @@ class ShowsController < ApplicationController
     def set_show
       @show = Show.find(params[:id])
       @movie = @show.movie  # Ensure @movie is set
+      @show = Show.find_by(id: params[:id])
+      if @show.nil? || (!current_user&.is_admin && @show.movie.release_date > Date.today)
+        flash[:alert] = "Show not available or movie not released."
+        redirect_to movies_path
+      end
     end
 
   #only admin and create, update and destroy the shows

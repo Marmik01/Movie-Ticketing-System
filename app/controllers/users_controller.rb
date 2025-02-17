@@ -43,7 +43,13 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
-    if @user.save
+    if User.exists?(username: @user.username)
+      flash[:alert] = "Username already exists. Please choose another."
+      render :new, status: :unprocessable_entity
+    elsif User.exists?(email: @user.email)
+      flash[:alert] = "Email already exists. Please use a different email."
+      render :new, status: :unprocessable_entity
+    elsif @user.save
       flash[:notice] = "User account created successfully!"
 
       if current_user&.is_admin?
@@ -63,7 +69,13 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1 or /users/1.json
   def update
     # respond_to do |format|
-    if @user.update(user_params)
+    if User.exists?(username: @user.username)
+      flash[:alert] = "Username already exists. Please choose another."
+      render :edit, status: :unprocessable_entity
+    elsif User.exists?(email: @user.email)
+      flash[:alert] = "Email already exists. Please use a different email."
+      render :edit, status: :unprocessable_entity
+    elsif @user.update(user_params)
         # format.html { redirect_to @user, notice: "User was successfully updated." }
         # format.json { render :show, status: :ok, location: @user }
       flash[:notice] = "Profile updated successfully!"
