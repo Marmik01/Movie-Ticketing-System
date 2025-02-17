@@ -17,8 +17,6 @@ This project is a movie booking system that allows users to browse available mov
 ### 🔑 1. Login as Admin  
 - Click **"Log In"** at the top-right corner  
 - Enter **Admin Credentials**:  
-  - **Email/Username:** `abc`  
-  - **Password:** `password123`  
 - Click **"Log In"** to access the Admin Dashboard  
 
 
