@@ -7,9 +7,10 @@ This project is a movie booking system that allows users to browse available mov
 
 ### 🔑 1. Login as Admin  
 - **Preconfigured Admin Credentials**:  
-  - **Email/Username:** `abc`  
-  - **Password:** `password123`  
+  - **Email/Username:** `admin`  
+  - **Password:** `admin123`  
 
+### 2. When signing up, the credit card info should be in the format- XXXX-XXXX-XXXX-XXXX
 
 ## 📌 Admin Navigation Guide
 
@@ -80,11 +81,12 @@ This project is a movie booking system that allows users to browse available mov
 
 
 
-### 👤 2. **Edit Your Profile**  
-- Click **"View Profile"** at the top  
+### 👤 2. **Delete/Edit Your Profile**  
+- Click **"View Profile"** at the top
 - Click **"Edit Profile"**  
-- You can update your **name**, **email**, **password**, and **address** but **cannot change your ID/username**  
-- Save the changes by clicking **"Save Profile"**  
+- You can update your **name**, **email**, **password**, **phone**, **credit card info** and **address** but **cannot change your ID**
+- Click **"Delete Account"** to delete your account. 
+- Save the changes by clicking **"Save Changes"**  
 
 
 
@@ -98,27 +100,28 @@ This project is a movie booking system that allows users to browse available mov
 
 ### 🎭 4. **View Available Shows for a Movie**  
 - Click on a movie from the available list  
-- View all **available shows** for the movie  
-  - **Show Details** include **date**, **time**, and **seat availability**  
+- View all **view shows** for the movie  
+- Click **Book this show** to book 
 
 
 
 ### 🎟️ 5. **Book Tickets for a Movie**  
-- After selecting a movie and showtime, click **"Book Tickets"**  
+- After selecting a movie and showtime, click **"Book this Show"**  
 - Once confirmed, click on **purchase tickets**  
 
 
 
 ### 🎫 6. **View Your Booking History**  
-- Click **"My Bookings"** from the top navigation  
-- View all past and upcoming bookings  
+- Click **"Booking History"** from the top navigation  
+- View all past bookings  
 - For each booking, you can see the details.
 
 
 
 ### ❌ 7. **Cancel a Ticket**  
-- Go to **"My Bookings"**  
-- Click **"Cancel"** for any booked ticket  
+- Go to **"Booking History"**  
+- Click **"Show this ticket"** for any booked ticket
+- Click **"Cancel Ticket"** to cancel
 - After cancellation, the **seat availability** for the show will be updated accordingly, and the status will reflect **"Cancelled"**
 
 ---
