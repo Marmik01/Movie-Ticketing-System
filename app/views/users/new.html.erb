@@ -1,44 +1,85 @@
-<h2>Sign Up</h2>
+<h2 class="text-center">Sign Up</h2>
 
-<%= form_with model: @user, url: signup_path, method: :post do |form| %>
-  <div>
-    <%= form.label :username %>
-    <%= form.text_field :username, required: true %>
+<div class="signup-form-container">
+  <%= form_with model: @user, url: signup_path, method: :post, class: "signup-form" do |form| %>
+
+    <div class="form-group">
+      <%= form.label :username, class: "form-label" %>
+      <%= form.text_field :username, class: "form-control", required: true %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :name, class: "form-label" %>
+      <%= form.text_field :name, class: "form-control", required: true %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :email, class: "form-label" %>
+      <%= form.email_field :email, class: "form-control", required: true %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :password, class: "form-label" %>
+      <%= form.password_field :password, class: "form-control", required: true %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :phone, class: "form-label" %>
+      <%= form.telephone_field :phone, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :address, class: "form-label" %>
+      <%= form.text_area :address, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :credit_card_info, class: "form-label" %>
+      <%= form.text_field :credit_card_info, class: "form-control", required: true, placeholder: "XXXX-XXXX-XXXX-XXXX" %>
+      <small class="form-text text-muted">Credit card must be in format: XXXX-XXXX-XXXX-XXXX</small>
+    </div>
+
+    <div class="form-group text-center">
+      <%= form.submit "Sign Up", class: "btn btn-primary" %>
+    </div>
+
+  <% end %>
+
+  <div class="text-center">
+    <%= link_to "Already have an account? Login", login_path, class: "btn btn-link" %>
   </div>
+</div>
 
-  <div>
-    <%= form.label :name %>
-    <%= form.text_field :name, required: true %>
-  </div>
+<style>
+    .signup-form-container {
+        max-width: 400px;
+        margin: auto;
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
 
-  <div>
-    <%= form.label :email %>
-    <%= form.email_field :email, required: true %>
-  </div>
+    .form-group {
+        margin-bottom: 15px;
+    }
 
-  <div>
-    <%= form.label :password %>
-    <%= form.password_field :password, required: true %>
-  </div>
+    .form-label {
+        font-weight: bold;
+    }
 
-  <div>
-    <%= form.label :phone %>
-    <%= form.telephone_field :phone %>
-  </div>
+    .form-control {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+    }
 
-  <div>
-    <%= form.label :address %>
-    <%= form.text_area :address %>
-  </div>
+    .btn-primary {
+        width: 100%;
+    }
 
-  <div>
-    <%= form.label :credit_card_info %>
-    <%= form.text_field :credit_card_info, required: true %>
-  </div>
-
-  <div>
-    <%= form.submit "Sign Up" %>
-  </div>
-<% end %>
-
-<%= link_to "Already have an account? Login", login_path %>
+    .text-center {
+        margin-top: 15px;
+    }
+</style>
