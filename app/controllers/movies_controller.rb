@@ -90,7 +90,11 @@ class MoviesController < ApplicationController
     end
     # Use callbacks to share common setup or constraints between actions.
     def set_movie
-      @movie = Movie.find(params.expect(:id))
+      @movie = Movie.find_by(id: params[:id])
+      if @movie.nil?
+        flash[:alert] = "Movie not found or not yet released."
+        redirect_to movies_path and return
+      end
     end
 
     # Only allow a list of trusted parameters through.
