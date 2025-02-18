@@ -1,17 +1,15 @@
-<%#= form_with(model: show,url: movie_shows_path(@movie), method: :post) do |form| %>
-<%= form_with(model: show, url: @show.persisted? ? movie_show_path(@movie, @show) : movie_shows_path(@movie), method: @show.persisted? ? :patch : :post) do |form| %>
+<% if @show.errors.any? %>
+  <div style="color: red; border: 1px solid red; padding: 10px; margin-bottom: 10px;">
+    <h3><%= pluralize(@show.errors.count, "error") %> prevented this show from being saved:</h3>
+    <ul>
+      <% @show.errors.full_messages.each do |error| %>
+        <li><%= error %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 
-  <% if show.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(show.errors.count, "error") %> prohibited this show from being saved:</h2>
-
-      <ul>
-        <% show.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+<%= form_with model: @show, url: @show.persisted? ? movie_show_path(@show.movie, @show) : movie_shows_path(@movie), method: @show.persisted? ? :patch : :post do |form| %>
 
   <!-- Display Movie Title (Read-Only) -->
   <div>

@@ -2,12 +2,12 @@
 
 <h1>Editing show</h1>
 
-<%= render "form", show: @show %>
+<%= render "form", show: @show, movie: @show.movie%>
 
 <br>
 
+
 <div>
-  <%= link_to "Show this show", movie_show_path(@movie, @show) %> |
   <%= link_to "Back to shows", movie_shows_path(@movie) %>
 </div>
 

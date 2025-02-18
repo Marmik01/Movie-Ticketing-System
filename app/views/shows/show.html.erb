@@ -13,47 +13,21 @@
     </div>
   <% end %>
 
-  <hr> <!-- Separator for better spacing -->
+  <br> <!-- Separator for better spacing -->
 
   <% if @show.available_seats > 0 %>
     <%= form_with url: movie_show_tickets_path(@show.movie, @show), method: :post, id: "purchaseTicketForm" do |form| %>
       <%= form.hidden_field :user_id, value: current_user.id %>
       <%= form.hidden_field :show_id, value: @show.id %>
-      <%= form.submit "Purchase Ticket", class: "btn btn-success", id: "purchaseButton" %>
+      <%= form.submit "Purchase Ticket", class: "btn btn-success", data: { confirm: "Confirm the purchase for ticket at Price $#{@show.ticket_price}?" } %>
     <% end %>
   <% else %>
     <p style="color: red;"><strong>Sold Out</strong></p>
   <% end %>
 
-  <hr> <!-- Another separator for better spacing -->
+  <br> <!-- Another separator for better spacing -->
 
   <div class="navigation">
     <%= link_to "Back to Shows", movie_shows_path(@show.movie), class: "btn btn-secondary" %>
   </div>
 </div>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const purchaseButton = document.getElementById("purchaseButton");
-        const purchaseForm = document.getElementById("purchaseTicketForm");
-
-        if (!purchaseButton || !purchaseForm) {
-            console.error("Purchase button or form not found!");
-            return;
-        }
-
-        purchaseButton.addEventListener("click", function (event) {
-            event.preventDefault(); // Prevent default form submission
-
-            let price = <%= @show.ticket_price %>;
-            const confirmation = confirm(`Are you sure you want to purchase this ticket?\nTotal Price: $${price.toFixed(2)}`);
-
-            if (confirmation) {
-                console.log("✅ Form is submitting...");
-                purchaseForm.submit(); // Submit the form if confirmed
-            } else {
-                console.log("❌ Purchase canceled.");
-            }
-        });
-    });
-</script>

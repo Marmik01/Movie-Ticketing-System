@@ -22,7 +22,7 @@ class ShowsController < ApplicationController
   def show
     unless current_user&.is_admin || (@show.available_seats > 0 && @show.movie.release_date <= Date.today)
       flash[:alert] = "This show is not available."
-      redirect_to movies_path
+      redirect_to movie_shows_path(@show.movie)
     end
   end
 
@@ -40,7 +40,11 @@ class ShowsController < ApplicationController
     @show = @movie.shows.new(show_params)
 
     respond_to do |format|
-      if @show.save
+      if Show.exists?(screen_id: @show.screen_id, date: @show.date, time: @show.time)
+        @show.errors.add(:base, "A show already exists on this screen at this date and time.") # Ensure error is added
+        format.html { render :new, status: :unprocessable_entity } 
+        format.json { render json: { error: "A show already exists on this screen at this date and time." }, status: :unprocessable_entity }
+      elsif @show.save
         format.html { redirect_to movie_shows_path(@movie), notice: "Show was successfully created." }
         format.json { render :show, status: :created, location: @show }
       else
@@ -53,9 +57,13 @@ class ShowsController < ApplicationController
   # PATCH/PUT /shows/1 or /shows/1.json
   def update
     respond_to do |format|
-      if @show.update(show_params)
+      if Show.where.not(id: @show.id).exists?(screen_id: show_params[:screen_id], date: show_params[:date], time: show_params[:time])
+        @show.errors.add(:base, "A show already exists on this screen at this date and time.") # Ensure error is added
+        format.html { render :edit, status: :unprocessable_entity } 
+        format.json { render json: { error: "A show already exists on this screen at this date and time." }, status: :unprocessable_entity }
+      elsif @show.update(show_params)
         format.html { redirect_to movie_shows_path(@show.movie), notice: "Show was successfully updated." }
-        format.json { render :show, status: :ok, location: @show }
+        format.json { render :edit, status: :ok, location: @show }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @show.errors, status: :unprocessable_entity }
