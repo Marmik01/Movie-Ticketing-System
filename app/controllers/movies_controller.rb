@@ -5,11 +5,21 @@ class MoviesController < ApplicationController
 
   # GET /movies or /movies.json
   def index
-    @movies = Movie.all
+    if current_user&.is_admin
+      @movies = Movie.all # Admins see all movies
+    else
+      @movies = Movie.where("release_date <= ?", Date.today) # Users see only released movies
+    end
   end
 
   # GET /movies/1 or /movies/1.json
   def show
+    @movie = Movie.find_by(id: params[:id])
+
+    if @movie.nil? || (!current_user&.is_admin && @movie.release_date > Date.today)
+      flash[:alert] = "Movie not found or not yet released."
+      redirect_to movies_path
+    end
   end
 
   # GET /movies/new
@@ -26,7 +36,11 @@ class MoviesController < ApplicationController
     @movie = Movie.new(movie_params)
 
     respond_to do |format|
-      if @movie.save
+      if Movie.exists?(title: @movie.title)
+        flash[:alert] = "A movie with this title already exists."
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: { error: "A movie with this title already exists." }, status: :unprocessable_entity }
+      elsif @movie.save
         format.html { redirect_to movies_path, notice: "Movie was successfully created." }
         format.json { render :show, status: :created, location: @movie }
       else
@@ -39,9 +53,13 @@ class MoviesController < ApplicationController
   # PATCH/PUT /movies/1 or /movies/1.json
   def update
     respond_to do |format|
-      if @movie.update(movie_params)
+      if Movie.where.not(id: @movie.id).exists?(title: movie_params[:title])
+        flash[:alert] = "A movie with this title already exists."
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: { error: "A movie with this title already exists." }, status: :unprocessable_entity }
+      elsif @movie.update(movie_params)
         format.html { redirect_to @movie, notice: "Movie was successfully updated." }
-        format.json { render :show, status: :ok, location: @movie }
+        format.json { render :edit, status: :ok, location: @movie }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @movie.errors, status: :unprocessable_entity }

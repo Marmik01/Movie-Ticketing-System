@@ -1,5 +1,9 @@
 <h2 class="text-center">Sign Up</h2>
 
+<% if flash[:alert] %>
+  <p style="color: red;"><%= flash[:alert] %></p>
+<% end %>
+
 <div class="signup-form-container">
   <%= form_with model: @user, url: signup_path, method: :post, class: "signup-form" do |form| %>
 

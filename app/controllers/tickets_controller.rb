@@ -19,6 +19,11 @@ class TicketsController < ApplicationController
 
   # POST /tickets or /tickets.json
   def create
+    if @show.movie.release_date > Date.today
+      flash[:alert] = "This movie has not been released yet. You cannot book tickets."
+      redirect_to movies_path and return
+    end
+    
     if @show.available_seats > 0
       @ticket = @show.tickets.new(
         user: current_user,

@@ -10,6 +10,10 @@ class Show < ApplicationRecord
   validates :available_seats, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :ticket_price, numericality: { greater_than_or_equal_to: 0 }
 
+
+  validates :screen_id, uniqueness: { scope: [:date, :time], message: "already has a show scheduled at this date and time" }
+
+  
   def reduce_seat_count!
     # update_column(:available_seats, available_seats - 1)
     decrement!(:available_seats) #  This properly decrements with ActiveRecord

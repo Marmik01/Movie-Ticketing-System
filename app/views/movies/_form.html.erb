@@ -11,6 +11,10 @@
     </div>
   <% end %>
 
+  <% if flash[:alert] %>
+  <p style="color: red;"><%= flash[:alert] %></p>
+  <% end %>
+
   <div>
     <%= form.label :title, style: "display: block" %>
     <%= form.text_field :title %>
