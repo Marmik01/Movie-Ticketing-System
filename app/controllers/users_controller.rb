@@ -69,10 +69,23 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1 or /users/1.json
   def update
     # respond_to do |format|
-    if User.exists?(username: @user.username)
+    if current_user.is_admin
+      if params[:user][:name].present? && params[:user].keys == ["name"]
+        if current_user.update(name: params[:user][:name])
+          flash[:notice] = "Profile updated successfully!"
+          redirect_to user_path(current_user)
+        else
+          flash[:alert] = "Error updating profile."
+          render :edit, status: :unprocessable_entity
+        end
+      else
+        flash[:alert] = "Admins can only update their name."
+        redirect_to edit_user_path(current_user)
+      end
+    elsif User.where.not(id: @user.id).exists?(username: @user.username)
       flash[:alert] = "Username already exists. Please choose another."
       render :edit, status: :unprocessable_entity
-    elsif User.exists?(email: @user.email)
+    elsif User.where.not(id: @user.id).exists?(email: @user.email)
       flash[:alert] = "Email already exists. Please use a different email."
       render :edit, status: :unprocessable_entity
     elsif @user.update(user_params)
@@ -144,7 +157,7 @@ class UsersController < ApplicationController
         params.require(:user).permit(:username, :name, :email, :password, :phone, :address, :credit_card_info).merge(is_admin: false)
       elsif current_user&.is_admin? && current_user.id == @user.id
         # Admin editing their own profile → Cannot change username, password, or ID
-        params.require(:user).permit(:name, :email, :phone, :address, :credit_card_info)
+        params.require(:user).permit(:name)
       else
         # Regular user editing their own profile or admin editing another user
         params.require(:user).permit(:username, :name, :email, :password, :phone, :address, :credit_card_info)
