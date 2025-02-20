@@ -70,17 +70,28 @@ class UsersController < ApplicationController
   def update
     # respond_to do |format|
     if current_user.is_admin
-      if params[:user][:name].present? && params[:user].keys == ["name"]
-        if current_user.update(name: params[:user][:name])
-          flash[:notice] = "Profile updated successfully!"
-          redirect_to user_path(current_user)
+      if @user == current_user
+        if params[:user][:name].present? && params[:user].keys == ["name"]
+          if current_user.update(name: params[:user][:name])
+            flash[:notice] = "Profile updated successfully!"
+            redirect_to user_path(current_user)
+          else
+            flash[:alert] = "Error updating profile."
+            render :edit, status: :unprocessable_entity
+          end
         else
-          flash[:alert] = "Error updating profile."
-          render :edit, status: :unprocessable_entity
+          flash[:alert] = "Admins can only update their name."
+          redirect_to edit_user_path(current_user)
         end
       else
-        flash[:alert] = "Admins can only update their name."
-        redirect_to edit_user_path(current_user)
+        # ✅ Admin can edit other users' details
+        if @user.update(user_params)
+          flash[:notice] = "User details updated successfully!"
+          redirect_to user_path(@user)
+        else
+          flash[:alert] = "Error updating user details."
+          render :edit, status: :unprocessable_entity
+        end
       end
     elsif User.where.not(id: @user.id).exists?(username: @user.username)
       flash[:alert] = "Username already exists. Please choose another."
