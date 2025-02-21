@@ -66,6 +66,42 @@ This project is a movie booking system that allows users to browse available mov
 
 ---
 
+## 🚀 Getting Started
+
+### **Prerequisites**
+Ensure you have the following installed:
+- **Ruby 3.4.1**
+- **Rails 8.0.1**
+- **SQLite3** (or the database you're using)
+
+### **Installation Steps**
+1. **Clone the repository**
+   ```bash
+   git clone https://github.ncsu.edu/spatel68/CSC_ECE_517_Spring2025_Program_2.git
+   ```
+
+2. **Install dependencies**
+   ```bash
+   bundle install
+   ```
+
+3. **Set up the database**
+   ```bash
+   rails db:migrate
+   rails db:seed
+   ```
+
+4. **Start the server**
+   ```bash
+   rails server
+   ```
+
+5. **Access the application**  
+   Open your browser and go to:  
+   ```
+   http://localhost:3000
+   ```
+
 ## 📌 User Navigation Guide
 
 ### 🔑 1. **Sign Up / Log In**  
@@ -75,7 +111,10 @@ This project is a movie booking system that allows users to browse available mov
 
 - If you already have an account, click **"Log In"**  
 - Enter **Username/Email** and **Password**  
-- Click **"Log In"** to access your User Dashboard  
+- Click **"Log In"** to access your User Dashboard
+
+
+---
 
 
 
