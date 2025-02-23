@@ -40,7 +40,17 @@ This project is a movie booking system that allows users to browse available mov
   - 🎬 **View Details** → Click **"View"**  
   - ✏️ **Edit** → Click **"Edit"**  
   - 🗑️ **Delete** → Click **"Delete"**  
-  - ➕ **Add a new movie** → Click **"New Movie"**  
+  - ➕ **Add a new movie** → Click **"New Movie"**
+ 
+### 📌 Multi-Screen Functionality
+- The movie theater has 6 screens, and each screen has:
+   - A unique name.
+   - A capacity limit.
+   - Multiple shows scheduled for different movies.
+
+Users must select a specific screen when booking a ticket.
+Admins can assign movies to different screens with specific showtimes.
+The system ensures no double booking on the same screen at the same time.
 
 
 
