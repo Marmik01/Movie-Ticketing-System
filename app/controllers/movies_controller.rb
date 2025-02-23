@@ -1,4 +1,5 @@
 class MoviesController < ApplicationController
+  before_action :require_login, only: [:index, :show]
   before_action :require_admin, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_movie, only: [:show, :edit, :update, :destroy]
 
@@ -81,6 +82,13 @@ class MoviesController < ApplicationController
   end
 
   private
+  
+    def require_login
+      unless current_user
+        flash[:alert] = "You must be logged in to view movies."
+        redirect_to login_path
+      end
+    end
 
     def require_admin
       unless current_user&.is_admin

@@ -68,49 +68,19 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
-    # respond_to do |format|
     if current_user.is_admin
       if @user == current_user
-        if params[:user][:name].present? && params[:user].keys == ["name"]
-          if current_user.update(name: params[:user][:name])
-            flash[:notice] = "Profile updated successfully!"
-            redirect_to user_path(current_user)
-          else
-            flash[:alert] = "Error updating profile."
-            render :edit, status: :unprocessable_entity
-          end
-        else
-          flash[:alert] = "Admins can only update their name."
-          redirect_to edit_user_path(current_user)
-        end
+        return update_admin_details if params[:user]&.keys&.all? { |key| %w[name email].include?(key) } && (params[:user][:name].present? || params[:user][:email].present?)
+        flash[:alert] = "Admins can only update their name and Email."
+        return redirect_to edit_user_path(current_user)
       else
-        # ✅ Admin can edit other users' details
-        if @user.update(user_params)
-          flash[:notice] = "User details updated successfully!"
-          redirect_to user_path(@user)
-        else
-          flash[:alert] = "Error updating user details."
-          render :edit, status: :unprocessable_entity
-        end
+        return update_user_details
       end
-    elsif User.where.not(id: @user.id).exists?(username: @user.username)
-      flash[:alert] = "Username already exists. Please choose another."
-      render :edit, status: :unprocessable_entity
-    elsif User.where.not(id: @user.id).exists?(email: @user.email)
-      flash[:alert] = "Email already exists. Please use a different email."
-      render :edit, status: :unprocessable_entity
-    elsif @user.update(user_params)
-        # format.html { redirect_to @user, notice: "User was successfully updated." }
-        # format.json { render :show, status: :ok, location: @user }
-      flash[:notice] = "Profile updated successfully!"
-      redirect_to user_path(@user)
-    else
-        # format.html { render :edit, status: :unprocessable_entity }
-        # format.json { render json: @user.errors, status: :unprocessable_entity }
-      flash[:alert] = "Error updating profile."
-      render :edit
     end
-    # end
+    
+    return render_error("Username already exists. Please choose another.") if username_taken?
+    return render_error("Email already exists. Please use a different email.") if email_taken?
+    return update_user_details
   end
 
   # DELETE /users/1 or /users/1.json
@@ -137,43 +107,82 @@ class UsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find_by(id: params[:id])
-      if @user.nil?
-        flash[:alert] = "User not found."
-        redirect_to root_path
-      end
+
+  def update_admin_details
+    if current_user.update(user_params)
+      flash[:notice] = "Profile updated successfully!"
+      redirect_to user_path(current_user)
+    else
+      flash[:alert] = current_user.errors.full_messages.to_sentence
+      render :edit, status: :unprocessable_entity
     end
+  end
 
-    def authorize_user_or_admin
-      unless session[:user_id] == @user.id || current_user&.is_admin?
-        flash[:alert] = "You are not authorized to edit or delete this profile!"
-        redirect_to root_path
-      end
+  def update_user_details
+    if @user.update(filtered_user_params)
+      flash[:notice] = "User details updated successfully!"
+      redirect_to user_path(@user)
+    else
+      flash[:alert] = @user.errors.full_messages.to_sentence
+      render :edit, status: :unprocessable_entity
     end
+  end
 
-    # Only allow a list of trusted parameters through.
-    # def user_params
-    #   if current_user&.is_admin?
-    #     params.require(:user).permit(:name, :email, :phone, :address)
-    #   else
-    #     params.require(:user).permit(:username, :name, :email, :password, :phone, :address, :credit_card_info)
-    #   end
-    # end
-
-    def user_params
-      if action_name == "create" && current_user&.is_admin?
-        # Admin creating a normal user → Ensure is_admin = false
-        params.require(:user).permit(:username, :name, :email, :password, :phone, :address, :credit_card_info).merge(is_admin: false)
-      elsif current_user&.is_admin? && current_user.id == @user.id
-        # Admin editing their own profile → Cannot change username, password, or ID
-        params.require(:user).permit(:name)
-      else
-        # Regular user editing their own profile or admin editing another user
-        params.require(:user).permit(:username, :name, :email, :password, :phone, :address, :credit_card_info)
-      end
+  def filtered_user_params
+    filtered_params = user_params.dup
+    if filtered_params[:password].blank?
+      filtered_params.delete(:password)
     end
+    filtered_params
+  end
 
+  def username_taken?
+    User.where.not(id: @user.id).exists?(username: @user.username)
+  end
 
+  def email_taken?
+    User.where.not(id: @user.id).exists?(email: @user.email)
+  end
+
+  def render_error(message)
+    flash[:alert] = message
+    render :edit, status: :unprocessable_entity
+  end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find_by(id: params[:id])
+    if @user.nil?
+      flash[:alert] = "User not found."
+      redirect_to root_path
+    end
+  end
+
+  def authorize_user_or_admin
+    unless session[:user_id] == @user.id || current_user&.is_admin?
+      flash[:alert] = "You are not authorized to edit or delete this profile!"
+      redirect_to root_path
+    end
+  end
+
+  # Only allow a list of trusted parameters through.
+  # def user_params
+  #   if current_user&.is_admin?
+  #     params.require(:user).permit(:name, :email, :phone, :address)
+  #   else
+  #     params.require(:user).permit(:username, :name, :email, :password, :phone, :address, :credit_card_info)
+  #   end
+  # end
+
+  def user_params
+    if action_name == "create" && current_user&.is_admin?
+      # Admin creating a normal user → Ensure is_admin = false
+      params.require(:user).permit(:username, :name, :email, :password, :phone, :address, :credit_card_info).merge(is_admin: false)
+    elsif current_user&.is_admin? && current_user.id == @user.id
+      # Admin editing their own profile → Cannot change username, password, or ID
+      params.require(:user).permit(:name, :email)
+    else
+      # Regular user editing their own profile or admin editing another user
+      params.require(:user).permit(:username, :name, :email, :password, :phone, :address, :credit_card_info)
+    end
+  end
 end
