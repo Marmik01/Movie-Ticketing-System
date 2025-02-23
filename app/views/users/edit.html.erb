@@ -7,14 +7,16 @@
 <%= form_with model: @user, local: true do |form| %>
   
   <% if @user.is_admin? %>
-    <!-- Admins Can Only Edit Name -->
+    <!-- Admins Can Only Edit Name and Email-->
     <p><strong>Username:</strong> <%= @user.username %> (Cannot be changed)</p>
-    <p><strong>Email:</strong> <%= @user.email %> (Cannot be changed)</p>
-    <p><strong>Role:</strong> Admin (Cannot be changed)</p>
 
     <div>
       <%= form.label :name %>
       <%= form.text_field :name, required: true %>
+    </div>
+    <div>
+    <%= form.label :email %>
+    <%= form.text_field :email, required: true %>
     </div>
 
   <% else %>
@@ -36,7 +38,7 @@
 
     <div>
       <%= form.label :password %>
-      <%= form.password_field :password, required: true%>
+      <%= form.password_field :password %>
     </div>
 
     <div>

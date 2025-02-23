@@ -1,4 +1,5 @@
 class ShowsController < ApplicationController
+  before_action :require_login, only: [:index, :show]
   before_action :set_show, only: %i[ show edit update destroy ]
   before_action :set_movie, only: [:index, :new, :create]
   before_action :require_admin, only: [:new, :create, :edit, :update, :destroy]
@@ -83,6 +84,13 @@ class ShowsController < ApplicationController
   end
 
   private
+
+    def require_login
+      unless current_user
+        flash[:alert] = "You must be logged in to view movies or show"
+        redirect_to login_path
+      end
+    end
 
     def set_movie
       @movie = Movie.find_by(id: params[:movie_id])

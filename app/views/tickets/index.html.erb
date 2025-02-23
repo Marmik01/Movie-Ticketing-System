@@ -8,7 +8,7 @@
   <% @tickets.each do |ticket| %>
     <%= render ticket %>
     <p>
-      <%= link_to "Show this ticket", movie_show_ticket_path(ticket.show.movie, ticket.show, ticket) %>
+      <%= link_to "View Ticket", movie_show_ticket_path(ticket.show.movie, ticket.show, ticket, from: "tickets") %>
     </p>
   <% end %>
 </div>

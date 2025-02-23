@@ -1,4 +1,5 @@
 class TicketsController < ApplicationController
+  before_action :require_login, only: [:index, :show]
   before_action :require_admin, only: [:index]
   before_action :set_ticket, only: %i[ show  update destroy ]
   before_action :set_show, only: [:create]
@@ -75,6 +76,13 @@ class TicketsController < ApplicationController
   end
 
   private
+
+    def require_login
+      unless current_user
+        flash[:alert] = "You must be logged in to purchase  or view tickets."
+        redirect_to login_path
+      end
+    end
 
     def set_show
       @show = Show.find(params[:show_id])

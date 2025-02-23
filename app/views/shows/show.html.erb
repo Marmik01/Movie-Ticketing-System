@@ -19,7 +19,7 @@
     <%= form_with url: movie_show_tickets_path(@show.movie, @show), method: :post, id: "purchaseTicketForm" do |form| %>
       <%= form.hidden_field :user_id, value: current_user.id %>
       <%= form.hidden_field :show_id, value: @show.id %>
-      <%= form.submit "Purchase Ticket", class: "btn btn-success", data: { confirm: "Confirm the purchase for ticket at Price $#{@show.ticket_price}?" } %>
+      <%= form.submit "Purchase Ticket", class: "btn btn-success", data: { confirm: "Confirm the purchase for ticket at Price $#{@show.ticket_price}?" }, from: "show" %>
     <% end %>
   <% else %>
     <p style="color: red;"><strong>Sold Out</strong></p>
